@@ -51,7 +51,7 @@ rules:
   - DOMAIN-KEYWORD,github,默认代理
   - DOMAIN-KEYWORD,instagram,默认代理
   - GEOIP,CN,DIRECT  # 中国大陆流量直接连接
-  - MATCH,默认代理  # 其他流量走代理
+  - MATCH,默认代理  # 其他流量走代理（你可以手动添加更多规则）
 
 proxy-groups:
   - name: "默认代理"
