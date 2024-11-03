@@ -1,0 +1,72 @@
+port: 7890  # HTTP 代理端口
+socks-port: 7891  # SOCKS 代理端口
+allow-lan: false  # 是否允许局域网访问
+mode: rule  # 代理模式
+log-level: info  # 日志级别
+ipv6: false # IPv6开关
+
+dns:
+  enable: true 
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  proxy-server-nameserver: 
+    - 223.5.5.5
+    - 119.29.29.29
+  default-nameserver:
+    - 223.5.5.5
+    - 119.29.29.29
+    - 8.8.8.8
+  nameserver:
+    - https://dns.alidns.com/dns-query
+    - https://doh.pub/dns-query
+  fallback:
+    - https://dns.google/dns-query
+    - https://cloudflare-dns.com/dns-query
+    - https://doh.opendns.com/dns-query
+  fallback-filter:
+    geoip: true 
+    ipcidr:
+      - 0.0.0.0/8
+      - 10.0.0.0/8
+      - 127.0.0.0/8
+      - 169.254.0.0/16
+      - 172.16.0.0/12
+      - 192.168.0.0/16
+      - 224.0.0.0/4
+      - 240.0.0.0/4
+
+
+rules:
+  - DOMAIN-SUFFIX,cn,DIRECT  # 对于.cn域名直接连接
+  - DOMAIN-SUFFIX,edu.cn,DIRECT # 对于edu.cn域名直接连接（中国公办大学常用域名）
+  - DOMAIN-SUFFIX,gov.cn,DIRECT # 对于gov.cn域名直接连接（中国政府机构常用域名）
+  - DOMAIN,www.msftconnecttest.com,DIRECT # Windows系统检测网络状态
+  - DOMAIN-SUFFIX,baidu.com,DIRECT
+  - DOMAIN-KEYWORD,google,默认代理  # 对于google相关流量走代理，下同
+  - DOMAIN-KEYWORD,blogspot,默认代理
+  - DOMAIN-KEYWORD,youtube,默认代理
+  - DOMAIN-SUFFIX,youtu.be,默认代理
+  - DOMAIN-SUFFIX,yt.be,默认代理
+  - DOMAIN-SUFFIX,ytimg.com,默认代理
+  - DOMAIN-KEYWORD,github,默认代理
+  - DOMAIN-KEYWORD,instagram,默认代理
+  - GEOIP,CN,DIRECT  # 中国大陆流量直接连接
+  - MATCH,默认代理  # 其他流量走代理
+
+proxy-groups:
+  - name: "默认代理"
+    type: select
+    proxies:
+      - "代理名称"  # 代理名称
+      - "DIRECT"  # 直连
+
+proxies:
+  - name: "代理名称"
+    type: ss  # 以Shadowsocks协议为例，可以根据你使用的代理类型调整
+    server: example.com  # 替换为你的代理服务器地址
+    port: 18964  # 替换为你的代理端口
+    password: password  # 替换为你的代理密码
+    cipher: aes-128-gcm  # 替换为你的加密方式
+
+
+# 其他配置选项可以根据需要添加
