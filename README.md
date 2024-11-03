@@ -25,7 +25,7 @@ fallback:
 解析国外DNS请求，配置使用Google DoH、Cloudflare DoH和OpenDNS DoH。
 
 default-nameserver：
-解析DoH服务器域名的DNS服务器，也就是只负责解析如dns.alidns.com这样的DNS服务器域名。配置使用223.5.5.5和119.29.29.29.
+解析DoH服务器域名的DNS服务器，也就是只负责解析如dns.alidns.com这样的DNS服务器域名。配置使用223.5.5.5、119.29.29.29和8.8.8.8。
 
 proxy-server-nameserver:
 专门解析节点服务器域名的DNS服务器，配置使用223.5.5.5和119.29.29.29。如使用自建节点或非专线/中转机场，请改为合适的国外DNS。
